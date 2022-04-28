@@ -1,11 +1,17 @@
 // import logo from './logo.svg';
 import './App.css';
-// import About from './component/About';
+import About from './component/About';
 import Navbar from './component/Navbar';
 import TextForm from './component/TextForm';
 import { useState } from 'react';
 import Alert from './component/Alert';
-
+// import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  // Link,
+  Routes
+} from "react-router-dom";
 
 // let name = "Aditya"
 function App() {
@@ -39,20 +45,28 @@ function App() {
   }
   return (
    <>
+   <Router>
    
 <Navbar Title="TextEdits" textAbout="About us" mode={mode} toggleMode={toggleMode}/> 
-
 <Alert alert={alert}/>
-
 <div className="container my-5">
-<TextForm showAlert={showAlert} heading="Text to analyis"/>
-<button className='btn btn-seondary ' />
+<Routes>
+          <Route exact path="/about"
+           element={ <About mode={mode} />} />
+         
+         
+          <Route exact path="/" element={ <TextForm showAlert={showAlert} heading="Text to analyis" mode={mode} />}/>
+          
+        </Routes>
 </div>
-{/* <Navbar  />  */}
-{/* <About className="container my-5"  /> */}
+</Router>
    </>
   );
 }
 
 
 export default App;
+
+/* <About className="container my-5"  /> */
+/* <button className='btn btn-seondary ' /> */
+/* <Navbar  />  */

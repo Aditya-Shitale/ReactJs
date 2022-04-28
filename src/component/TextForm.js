@@ -24,9 +24,8 @@ export default function TextForm(props) {
 
     }
     const  CopyText = () =>{
-    var text = document.getElementById("myBox");
-    text.select();
-    navigator.clipboard.writeText(text.value) ; 
+ 
+    navigator.clipboard.writeText(text) ; 
     props.showAlert("Text copied to clipboard", "success");
       
     }
@@ -65,14 +64,14 @@ export default function TextForm(props) {
         <h1  style={{color: 'Orange'}}>{props.heading}</h1>
 <div className="mb-3">
   {/* <label htmlFor="exampleFormControlTextarea1" className="form-label">Enter Text</label> */}
-  <textarea className="form-control" value={text} style={{backgroundColor: props.mode==='dark'?'grey':'white', color: props.mode==='dark'?'white':'#042743'}} onChange={handleOnchange} id="myBox" rows="8"></textarea>
+  <textarea className="form-control" value={text} style={{backgroundColor: props.mode==='dark'?'#13466e':'white', color: props.mode==='dark'?'white':'#042743'}} onChange={handleOnchange} id="myBox" rows="8"></textarea>
 </div>
 
-<button className="btn btn-primary mx-1" onClick={ChangetoUppercase}>Convert Uppercase</button>
-<button className="btn btn-primary mx-1" onClick={ChangetoLowercase}>Convert Lowercase</button>
-<button className="btn btn-primary mx-1" onClick={ClrText}>Clear Text</button>
-<button className="btn btn-primary mx-1" onClick={CopyText}>Copy Text</button>
-<button className="btn btn-primary mx-1" onClick={RemoveSpace}>Remove extra Space</button>
+<button disabled={text.length === 0} className="btn btn-primary mx-1 my-1 " onClick={ChangetoUppercase}>Convert Uppercase</button>
+<button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={ChangetoLowercase}>Convert Lowercase</button>
+<button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={ClrText}>Clear Text</button>
+<button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={CopyText}>Copy Text</button>
+<button disabled={text.length === 0} className="btn btn-primary mx-1 my-1" onClick={RemoveSpace}>Remove extra Space</button>
 
 {/* ***********************************************************TO DO****************************************************************************************************** */}
 <div className="dropdown">
@@ -91,9 +90,9 @@ export default function TextForm(props) {
 </div>
     <div className="container my-5" style={{color: props.mode==='dark'?'white':'#042743'}}>
         <h2 style={{color: 'Orange'}}>Your Text Summary</h2>
-        <p style={{color: "green"}}> {text.split(" ").length} words and {text.length} characters</p>
+        <p style={{color: "green"}}> {text.split(/\s+/).filter((element)=>{return element.length!==0}).length} words and {text.length} characters</p>
         <p style={{color: "green"}}>
-           No. of minutes required to read the given text {0.008 * text.split(" ").length} 
+           No. of minutes required to read the given text {0.008 * text.split(" ").filter((element)=>{return element.length!==0}).length} 
         </p>
         <h2 style={{color: 'Orange'}}>Preview </h2>
         <p style={{color: "green"}}>{text.length>0?text:"Enter something in the textbox above to preview it here"} </p>
